@@ -1,0 +1,4 @@
+rootProject.name = 'example'
+
+include ":config-server"
+include ":licensing-service"
