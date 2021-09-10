@@ -1,5 +1,6 @@
+config-repo/
+
 HELP.md
-gateway/.gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
@@ -36,6 +37,7 @@ out/
 ### VS Code ###
 .vscode/
 
-# 프로젝트 제외 경로
-/.gradle/
-/config-server/.gradle/
+### Gradle Sub Module Wrapper ###
+/**/gradle/
+/**/gradlew
+/**/gradlew.bat

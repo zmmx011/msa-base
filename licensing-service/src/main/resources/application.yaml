@@ -1,4 +1,8 @@
-
+spring:
+  application:
+    name: licensingservice
+  config:
+    import: "optional:configserver:http://localhost:8888"
 management:
   endpoint:
     health:

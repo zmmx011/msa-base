@@ -2,12 +2,14 @@
 server:
   port: 8888
 spring:
-  config:
-    activate:
-      on-profile: native
   cloud:
     config:
       server:
-        native:
-          search-locations: file:///Users/e1264/IdeaProjects/msa/example/config-server/src/main/resources/config/licensingservice,file:///Users/e1264/IdeaProjects/msa/example/config-server/src/main/resources/config/organizationservice
+        git:
+          uri: https://git.jetbrains.space/invenia/sso/config.git
+          search-paths: licensingservice, organizationservice
+          username: damu
+          password: tnfdlekd
+        encrypt:
+          enabled: false
 ---
