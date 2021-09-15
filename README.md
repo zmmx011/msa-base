@@ -27,13 +27,9 @@ Spring Boot Gradle Plugin 을 IDEA에서 사용하는 것이 가장 편합니다
 도커 이미지가 정상적으로 생성 되었다면 도커 데스크톱에서 확인 가능합니다. 
 
 ## 도커 실행
-기본 포맷
-
-`> docker run [OPTIONS] IMAGE[:TAG|@DIGEST] [COMMAND] [ARG...]`
-
-Config server 실행 예
-
-`> docker run -e spring.profiles.active=native -p 8888:8888 --rm --name config-server config-server:0.0.1-SNAPSHOT`
+- **config-server** : `docker run --env ENCRYPT_KEY="damu" --rm -p 8888:8888 config-server:0.0.1-SNAPSHOT`
+- **licensing-service** : `docker run -e spring.profiles.active=dev --env ENCRYPT_KEY="damu" --rm -p 8001:8001 licensing-service:0.0.1-SNAPSHOT`
+- **organization-service** : `docker run -e spring.profiles.active=dev --env ENCRYPT_KEY="damu" --rm -p 8002:8002 organization-service:0.0.1-SNAPSHOT` 
 
 자주 사용되는 옵션
 - -d : 백그라운드 실행

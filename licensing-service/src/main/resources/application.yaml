@@ -1,8 +1,8 @@
 spring:
   application:
-    name: licensingservice
+    name: licensingservice # 유레카 인스턴스 name
   config:
-    import: "optional:configserver:http://localhost:8888"
+    import: "optional:configserver:http://172.17.0.2:8888"
 management:
   endpoint:
     health:
@@ -10,3 +10,11 @@ management:
   health:
     diskspace:
       enabled: true
+eureka:
+  instance:
+    preferIpAddress: true # 서비스 이름 대신 서비스 IP주소 등록
+  client:
+    registerWithEureka: true # 유레카에 서비스 등록
+    fetchRegistry: true # 유레카 서비스 위치
+    serviceUrl:
+      defaultZone: "http://100.100.15.82:8761/eureka/" # 레지스트리 사본을 로컬로 캐시한다

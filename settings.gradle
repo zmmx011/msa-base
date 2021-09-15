@@ -2,3 +2,5 @@ rootProject.name = 'example'
 
 include ":config-server"
 include ":licensing-service"
+include ":organization-service"
+include ":eureka-server"
