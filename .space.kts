@@ -4,6 +4,6 @@
 * For more info, see https://www.jetbrains.com/help/space/automation.html
 */
 
-job("Build and push Docker") {
-    gradlew("openjdk:16", "bootBuildImage")
+job("Build") {
+    gradlew("openjdk:17", "build")
 }
