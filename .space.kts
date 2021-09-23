@@ -9,7 +9,7 @@ job("Build") {
         shellScript {
             content = """
                     ./gradlew build
-                    cp -r build $mountDir/share
+                    cp -r config-server/build $mountDir/share
                 """
         }
     }
