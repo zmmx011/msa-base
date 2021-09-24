@@ -13,10 +13,6 @@ job("Build and push Docker") {
         }
     }
     docker {
-        resources {
-            cpu = 1.cpu
-            memory = 2000.mb
-        }
         build {
 
         }
