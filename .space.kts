@@ -17,6 +17,9 @@ job("Build and push Docker") {
             cpu = 1.cpu
             memory = 2000.mb
         }
+        build {
+
+        }
         push("invenia.registry.jetbrains.space/p/sso/containers/config-server") {
             tags("0.\$JB_SPACE_EXECUTION_NUMBER", "lts")
         }
