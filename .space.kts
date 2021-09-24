@@ -8,9 +8,7 @@ job("Build and push Docker") {
     container(displayName = "Run gradle build", image = "openjdk") {
         shellScript {
             content = """
-                    ./gradlew build
-                    cp -r config-server/build $mountDir/share
-                    ls $mountDir/share
+                    ./gradlew bootBuildImage --imageName=invenia.registry.jetbrains.space/p/sso/containers/config-server
                 """
         }
     }
@@ -18,13 +16,6 @@ job("Build and push Docker") {
         resources {
             cpu = 1.cpu
             memory = 2000.mb
-        }
-        beforeBuildScript {
-            content = "cp -r  $mountDir/share docker"
-        }
-        build {
-            context = "docker"
-            file = "./Dockerfile"
         }
         push("invenia.registry.jetbrains.space/p/sso/containers/config-server") {
             tags("0.\$JB_SPACE_EXECUTION_NUMBER", "lts")
