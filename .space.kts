@@ -4,7 +4,7 @@
 * For more info, see https://www.jetbrains.com/help/space/automation.html
 */
 
-job("Build") {
+job("Build and push Docker") {
     container(displayName = "Run gradle build", image = "openjdk") {
         shellScript {
             content = """
@@ -23,6 +23,7 @@ job("Build") {
         }
         build {
             context = "docker"
+            file = "./Dockerfile"
         }
         push("invenia.registry.jetbrains.space/p/sso/containers/config-server") {
             tags("0.\$JB_SPACE_EXECUTION_NUMBER", "lts")
