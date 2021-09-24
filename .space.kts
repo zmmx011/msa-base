@@ -10,6 +10,7 @@ job("Build and push Docker") {
             content = """
                     ./gradlew build
                     cp -r config-server/build $mountDir/share
+                    ls $mountDir/share
                 """
         }
     }
