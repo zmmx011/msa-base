@@ -33,7 +33,7 @@ jobs:
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+          password: ${{ secrets.CR_PAT }}
       - name: tree directories
         run: tree .
       - name: pwd
@@ -43,5 +43,5 @@ jobs:
         with:
           context: .
           file: ./config-server/Dockerfile
-          push: true
+          push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/${{ github.repository_owner }}/config-server:latest
