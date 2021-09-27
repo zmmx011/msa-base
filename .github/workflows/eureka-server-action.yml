@@ -6,7 +6,7 @@ name: Config Server Action
 on:
   push:
     paths:
-      - "config-server/**"
+      - "eureka-server/**"
 
 jobs:
   build:
@@ -24,7 +24,7 @@ jobs:
       - name: Grant execute permission for gradlew
         run: chmod +x gradlew
       - name: Build Image with Gradle
-        run: ./gradlew :config-server:build
+        run: ./gradlew :eureka-server:build
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login ghcr.io
@@ -41,7 +41,7 @@ jobs:
       - name: Docker Push
         uses: docker/build-push-action@v2
         with:
-          context: ./config-server
+          context: ./eureka-server
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ghcr.io/${{ github.repository_owner }}/config-server:latest
+          tags: ghcr.io/${{ github.repository_owner }}/eureka-server:latest
