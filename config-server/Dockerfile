@@ -1,7 +1,7 @@
 FROM openjdk:17-jdk-alpine
 RUN addgroup -S spring && adduser -S spring -G spring
 USER spring:spring
-ARG JAR_FILE=build/libs/*.jar
+ARG JAR_FILE=config-server/build/libs/*.jar
 COPY ${JAR_FILE} config-server.jar
 EXPOSE 8888
 ENTRYPOINT ["java","-jar","/config-server.jar"]
