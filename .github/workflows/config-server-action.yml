@@ -25,6 +25,8 @@ jobs:
         run: chmod +x gradlew
       - name: Build Image with Gradle
         run: ./gradlew :config-server:build
+      - name: tree directories
+        run: tree .
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Checkout repository
