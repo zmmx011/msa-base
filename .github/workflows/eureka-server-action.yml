@@ -34,14 +34,12 @@ jobs:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
-      - name: tree directories
-        run: tree .
-      - name: pwd
-        run: pwd
-      - name: Docker Push
+      - name: Change directory
+        run: cd eureka-server
+      - name: Docker Buind And Push
         uses: docker/build-push-action@v2
         with:
-          context: ./eureka-server
+          context: .
           file: ./Dockerfile
           push: ${{ github.event_name != 'pull_request' }}
           tags: ghcr.io/${{ github.repository_owner }}/eureka-server:latest
