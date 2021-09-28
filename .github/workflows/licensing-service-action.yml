@@ -24,10 +24,6 @@ jobs:
         run: chmod +x gradlew
       - name: Build Image with Gradle
         run: ./gradlew :licensing-service:build
-  docker:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
       - name: Login ghcr.io
