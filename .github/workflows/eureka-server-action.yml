@@ -7,7 +7,7 @@ on:
   push:
     paths:
       - "eureka-server/**"
-
+      - ".github/eureka-server-action.yml"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,6 +24,7 @@ jobs:
       - name: Build Image with Gradle
         run: ./gradlew :eureka-server:build
   docker:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx

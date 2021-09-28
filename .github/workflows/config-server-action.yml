@@ -7,7 +7,7 @@ on:
   push:
     paths:
       - "config-server/**"
-
+      - ".github/config-server-action.yml"
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,6 +24,7 @@ jobs:
       - name: Build Image with Gradle
         run: ./gradlew :config-server:build
   docker:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Set up Docker Buildx
