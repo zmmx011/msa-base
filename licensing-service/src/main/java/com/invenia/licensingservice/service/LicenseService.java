@@ -6,6 +6,7 @@ import com.invenia.licensingservice.entity.License;
 import com.invenia.licensingservice.model.Organization;
 import com.invenia.licensingservice.repository.LicenseRepository;
 import java.util.List;
+import java.util.Random;
 import java.util.UUID;
 import org.springframework.stereotype.Service;
 
@@ -29,6 +30,7 @@ public class LicenseService {
   public License getLicense(String organizationId, String licenseId) {
     License license = licenseRepository.findByOrganizationIdAndLicenseId(organizationId, licenseId);
     Organization organization = organizationFeignClient.getOrganization(organizationId);
+    randomlyRunLong();
     return license
         .withOrganizationName(organization.name())
         .withContactName(organization.contactName())
@@ -47,11 +49,29 @@ public class LicenseService {
     licenseRepository.save(license);
   }
 
-  public void updateLicense(License license){
+  public void updateLicense(License license) {
     licenseRepository.save(license);
   }
 
-  public void deleteLicense(License license){
+  public void deleteLicense(License license) {
     licenseRepository.delete(license);
+  }
+
+  private void randomlyRunLong() {
+    Random rand = new Random();
+
+    int randomNum = rand.nextInt((3 - 1) + 1) + 1;
+
+    if (randomNum == 3) {
+      sleep();
+    }
+  }
+
+  private void sleep() {
+    try {
+      Thread.sleep(11000);
+    } catch (InterruptedException e) {
+      e.printStackTrace();
+    }
   }
 }
