@@ -7,7 +7,6 @@ on:
   push:
     paths:
       - "eureka-server/**"
-      - ".github/eureka-server-action.yml"
 jobs:
   build:
     runs-on: ubuntu-latest

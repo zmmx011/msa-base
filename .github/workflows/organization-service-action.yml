@@ -7,8 +7,6 @@ on:
   push:
     paths:
       - "organization-service/**"
-      - ".github/organization-service-action.yml"
-
 jobs:
   build:
     runs-on: ubuntu-latest

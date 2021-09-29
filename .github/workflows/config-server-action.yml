@@ -7,7 +7,6 @@ on:
   push:
     paths:
       - "config-server/**"
-      - ".github/config-server-action.yml"
 jobs:
   build:
     runs-on: ubuntu-latest
