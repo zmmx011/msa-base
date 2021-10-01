@@ -5,7 +5,6 @@ import com.invenia.licensingservice.config.ServiceConfig;
 import com.invenia.licensingservice.entity.License;
 import com.invenia.licensingservice.service.LicenseService;
 import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,20 +27,17 @@ public class LicenseServiceController {
   }
 
   @RequestMapping(value = "/", method = RequestMethod.GET)
-  public List<License> getLicenses(@PathVariable("organizationId") String organizationId) {
-
+  public List<License> getLicenses(@PathVariable String organizationId) {
     return licenseService.getLicensesByOrganizationId(organizationId);
   }
 
   @RequestMapping(value = "/{licenseId}", method = RequestMethod.GET)
-  public License getLicenses(@PathVariable("organizationId") String organizationId,
-      @PathVariable("licenseId") String licenseId) {
-
+  public License getLicenses(@PathVariable String organizationId, @PathVariable String licenseId) {
     return licenseService.getLicense(organizationId, licenseId);
   }
 
   @RequestMapping(value = "{licenseId}", method = RequestMethod.PUT)
-  public void updateLicenses(@PathVariable("licenseId") String licenseId, @RequestBody License license) {
+  public void updateLicenses(@PathVariable String licenseId, @RequestBody License license) {
     licenseService.updateLicense(license);
   }
 
@@ -52,7 +48,7 @@ public class LicenseServiceController {
 
   @RequestMapping(value = "{licenseId}", method = RequestMethod.DELETE)
   @ResponseStatus(HttpStatus.NO_CONTENT)
-  public void deleteLicenses(@PathVariable("licenseId") String licenseId, @RequestBody License license) {
+  public void deleteLicenses(@PathVariable String licenseId, @RequestBody License license) {
     licenseService.deleteLicense(license);
   }
 }

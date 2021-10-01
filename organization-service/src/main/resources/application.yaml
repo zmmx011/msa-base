@@ -1,3 +1,5 @@
+server:
+  port: 8085
 spring:
   application:
     name: organizationservice # 유레카에 등록할 인스턴스 명
