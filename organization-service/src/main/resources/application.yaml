@@ -23,4 +23,4 @@ eureka:
     registerWithEureka: true # 유레카에 서비스 등록
     fetchRegistry: true # 레지스트리 사본을 로컬로 캐시한다
     serviceUrl:
-      defaultZone: "http://100.100.15.82:8761/eureka/" # 유레카 서비스 위치
+      defaultZone: "http://localhost:8761/eureka/" # 유레카 서비스 위치

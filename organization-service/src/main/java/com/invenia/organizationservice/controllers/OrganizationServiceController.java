@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "v1/organizations")
+@RequestMapping(value = "organization-service/v1/organizations")
 public record OrganizationServiceController(OrganizationService orgService) {
 
   @RequestMapping(value = "/{organizationId}", method = RequestMethod.GET)

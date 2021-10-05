@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "v1/organizations/{organizationId}/licenses")
+@RequestMapping(value = "licensing-service/v1/organizations/{organizationId}/licenses")
 public class LicenseServiceController {
 
   private final LicenseService licenseService;
