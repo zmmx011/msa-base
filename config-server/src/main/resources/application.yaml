@@ -8,10 +8,8 @@ spring:
     config:
       server:
         git:
-          uri: https://git.jetbrains.space/invenia/sso/config.git
-          search-paths: licensingservice, organizationservice
-          username: damu
-          password: tnfdlekd
+          uri: https://github.com/zmmx011/sample-config-repo
+          search-paths: licensingservice, organizationservice, user-service
         encrypt:
           enabled: false
 eureka:
