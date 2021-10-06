@@ -1,5 +1,24 @@
 version: '3.9'
 services:
+  keycloak:
+    image: quay.io/keycloak/keycloak:15.0.2
+    ports:
+      - "9000:9000"
+    environment:
+      NODE_ENV: sit
+      DEBUGGING: 1
+
+      # Admin account
+      KEYCLOAK_USER: admin
+      KEYCLOAK_PASSWORD: admin
+      JDBC_PARAMS:
+      # PostgreSQL DB settings
+      DB_VENDOR: mariadb
+      DB_ADDR: 100.100.10.177
+      DB_PORT: 3306
+      DB_DATABASE: INVENIA_DEV
+      DB_USER: e1264
+      DB_PWD: inveni@2020
   eurekaserver:
     image: ghcr.io/zmmx011/eureka-server:latest
     ports:
@@ -12,28 +31,48 @@ services:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
-  licensingservice:
-    image: ghcr.io/zmmx011/licensing-service:latest
+    depends_on:
+      - eurekaserver
+  apigateway:
+    image: ghcr.io/zmmx011/api-gateway:latest
     ports:
       - "8080:8080"
     environment:
-      PROFILE: "default"
-      SERVER_PORT: "8080"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      CONFIGSERVER_PORT: "8888"
       ENCRYPT_KEY: "damu"
+    depends_on:
+      - eurekaserver
+  licensingservice:
+    image: ghcr.io/zmmx011/licensing-service:latest
+    ports:
+      - "8001:8001"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8001"
+      ENCRYPT_KEY: "damu"
+    depends_on:
+      - eurekaserver
+      - configserver
   organizationservice:
     image: ghcr.io/zmmx011/organization-service:latest
     ports:
-      - "8085:8085"
+      - "8002:8002"
     environment:
       PROFILE: "default"
-      SERVER_PORT: "8085"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
-      EUREKASERVER_PORT: "8761"
-      CONFIGSERVER_PORT: "8888"
-      DATABASESERVER_PORT: "5432"
+      SERVER_PORT: "8002"
       ENCRYPT_KEY: "damu"
+    depends_on:
+      - eurekaserver
+      - configserver
+  userservice:
+    image: ghcr.io/zmmx011/user-service:latest
+    ports:
+      - "8005:8005"
+    environment:
+      PROFILE: "default"
+      SERVER_PORT: "8005"
+      ENCRYPT_KEY: "damu"
+    depends_on:
+      - eurekaserver
+      - configserver

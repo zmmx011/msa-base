@@ -20,3 +20,7 @@ spring:
           uri: lb://ORGANIZATIONSERVICE
           predicates:
             - Path=/organization-service/**
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
