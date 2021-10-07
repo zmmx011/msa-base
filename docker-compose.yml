@@ -5,74 +5,106 @@ services:
     ports:
       - "9000:9000"
     environment:
-      NODE_ENV: sit
-      DEBUGGING: 1
-
       # Admin account
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
-      JDBC_PARAMS:
-      # PostgreSQL DB settings
+      # DB
       DB_VENDOR: mariadb
       DB_ADDR: 100.100.10.177
       DB_PORT: 3306
-      DB_DATABASE: INVENIA_DEV
+      DB_DATABASE: keycloak_dev
       DB_USER: e1264
-      DB_PWD: inveni@2020
+      DB_PASSWORD: inveni@2020
   eurekaserver:
     image: ghcr.io/zmmx011/eureka-server:latest
+    restart: on-failure
     ports:
       - "8761:8761"
+    build:
+      context: .
+      dockerfile: ./eureka-server/Dockerfile
   configserver:
     image: ghcr.io/zmmx011/config-server:latest
+    restart: on-failure
     ports:
       - "8888:8888"
     environment:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
+    build:
+      context: .
+      dockerfile: ./config-server/Dockerfile
     depends_on:
       - eurekaserver
   apigateway:
     image: ghcr.io/zmmx011/api-gateway:latest
+    restart: on-failure
     ports:
-      - "8080:8080"
+      - "8000:8000"
     environment:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
+    build:
+      context: .
+      dockerfile: ./api-gateway/Dockerfile
     depends_on:
       - eurekaserver
   licensingservice:
     image: ghcr.io/zmmx011/licensing-service:latest
+    restart: on-failure
     ports:
       - "8001:8001"
     environment:
       PROFILE: "default"
       SERVER_PORT: "8001"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      CONFIGSERVER_PORT: "8888"
       ENCRYPT_KEY: "damu"
+    build:
+      context: .
+      dockerfile: ./licensing-service/Dockerfile
     depends_on:
       - eurekaserver
       - configserver
   organizationservice:
     image: ghcr.io/zmmx011/organization-service:latest
+    restart: on-failure
     ports:
       - "8002:8002"
     environment:
       PROFILE: "default"
       SERVER_PORT: "8002"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      CONFIGSERVER_PORT: "8888"
       ENCRYPT_KEY: "damu"
+    build:
+      context: .
+      dockerfile: ./organization-service/Dockerfile
     depends_on:
       - eurekaserver
       - configserver
   userservice:
     image: ghcr.io/zmmx011/user-service:latest
+    restart: on-failure
     ports:
       - "8005:8005"
     environment:
       PROFILE: "default"
       SERVER_PORT: "8005"
+      EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
+      EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      CONFIGSERVER_PORT: "8888"
       ENCRYPT_KEY: "damu"
+    build:
+      context: .
+      dockerfile: ./user-service/Dockerfile
     depends_on:
       - eurekaserver
       - configserver
