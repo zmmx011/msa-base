@@ -3,7 +3,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:15.0.2
     ports:
-      - "9000:9000"
+      - "9090:9090"
     environment:
       # Admin account
       KEYCLOAK_USER: admin
