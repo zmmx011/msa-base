@@ -3,7 +3,7 @@ services:
   keycloak:
     image: quay.io/keycloak/keycloak:15.0.2
     ports:
-      - "9090:9090"
+      - "8080:8080"
     environment:
       # Admin account
       KEYCLOAK_USER: admin
@@ -39,10 +39,11 @@ services:
       - eurekaserver
   apigateway:
     image: ghcr.io/zmmx011/api-gateway:latest
-    restart: on-failure
     ports:
       - "8000:8000"
     environment:
+      KEYCLOAK_URI: "http://keycloak:8080/auth/"
+      KEYCLOAK_REALM: "service"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
@@ -51,6 +52,7 @@ services:
       dockerfile: ./api-gateway/Dockerfile
     depends_on:
       - eurekaserver
+      - keycloak
   licensingservice:
     image: ghcr.io/zmmx011/licensing-service:latest
     restart: on-failure

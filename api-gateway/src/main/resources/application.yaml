@@ -7,22 +7,48 @@ eureka:
     registerWithEureka: true # 유레카에 서비스 등록
     fetchRegistry: true # 레지스트리 사본을 로컬로 캐시한다
     serviceUrl:
-      defaultZone: "http://eurekaserver:8761/eureka/" # 유레카 서비스 위치
+      defaultZone: ${EUREKASERVER_URI:http://localhost:8761/eureka} # 유레카 서비스 위치
 spring:
   application:
     name: apigateway
   cloud:
     gateway:
+      default-filters:
+        - TokenRelay
       routes:
         - id: licensing-service
           uri: lb://LICENSINGSERVICE
           predicates:
             - Path=/licensing-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
         - id: organization-service
           uri: lb://ORGANIZATIONSERVICE
           predicates:
             - Path=/organization-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
         - id: user-service
           uri: lb://USER-SERVICE
           predicates:
             - Path=/user-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+  security:
+    oauth2:
+      client:
+        provider:
+          keycloak:
+            # issuer-uri: ${ISSUER_URI:http://localhost:8080/auth/realms/service}
+            #issuer-uri: http://localhost:8080/auth/realms/service
+            user-name-attribute: preferred_username
+            authorization-uri: http://localhost:8080/auth/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/auth
+            token-uri: http://localhost:8080/auth/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/token
+            user-info-uri: http://localhost:8080/auth/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/userinfo
+            jwk-set-uri: http://localhost:8080/auth/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/certs
+        registration:
+          keycloak:
+            client-id: spring-gateway-client
+            client-secret: 746f79e6-5520-4943-8129-23ae42838d33
+            #authorization-grant-type: authorization_code
+            #redirect-uri: "{baseUrl}/login/oauth2/code/keycloak"
