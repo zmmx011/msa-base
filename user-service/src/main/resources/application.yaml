@@ -1,14 +1,5 @@
 server:
   port: 8005
-spring:
-  application:
-    name: user-service # 유레카에 등록할 인스턴스 명
-  config:
-    import: "optional:configserver:"
-  cloud:
-    config:
-      discovery:
-        enabled: true # 유레카에서 검색
 management:
   endpoint:
     health:
@@ -24,3 +15,33 @@ eureka:
     fetchRegistry: true # 레지스트리 사본을 로컬로 캐시한다
     serviceUrl:
       defaultZone: ${EUREKASERVER_URI:http://localhost:8761/eureka} # 유레카 서비스 위치
+spring:
+  application:
+    name: user-service
+  config:
+    import: "optional:configserver:"
+  cloud:
+    config:
+      discovery:
+        enabled: true # 유레카에서 검색
+  security:
+    oauth2:
+      client:
+        registration:
+          keycloak:
+            provider: keycloak
+            client-id: spring-gateway-client
+            client-secret: 746f79e6-5520-4943-8129-23ae42838d33
+            authorization-grant-type: authorization_code
+            redirect-uri: http://localhost:8000/login/oauth2/code/keycloak
+            scope: openid
+        provider:
+          keycloak:
+            authorization-uri: ${KEYCLOAK_URI:http://localhost:8080/auth}/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/auth
+            token-uri: ${KEYCLOAK_URI:http://localhost:8080/auth}/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/token
+            user-info-uri: ${KEYCLOAK_URI:http://localhost:8080/auth}/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/userinfo
+            jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080/auth}/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/certs
+            user-name-attribute: preferred_username
+      resourceserver:
+        jwt:
+          jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080/auth}/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/certs

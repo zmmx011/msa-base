@@ -1,6 +1,4 @@
 FROM openjdk:17-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
 ARG JAR_FILE=api-gateway/build/libs/*.jar
 COPY ${JAR_FILE} api-gateway.jar
 EXPOSE 8000
