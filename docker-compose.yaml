@@ -2,6 +2,7 @@ version: '3.9'
 services:
   keycloak:
     image: quay.io/keycloak/keycloak:15.0.2
+    restart: on-failure
     ports:
       - "8080:8080"
     environment:
@@ -24,8 +25,7 @@ services:
     ports:
       - "8761:8761"
     build:
-      context: .
-      dockerfile: ./eureka-server/Dockerfile
+      context: ./eureka-server
   configserver:
     image: ghcr.io/zmmx011/config-server:latest
     restart: on-failure
@@ -36,34 +36,33 @@ services:
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
     build:
-      context: .
-      dockerfile: ./config-server/Dockerfile
+      context: ./config-server
     depends_on:
       - eurekaserver
   apigateway:
     image: ghcr.io/zmmx011/api-gateway:latest
+    restart: on-failure
     ports:
       - "8000:8000"
     environment:
-      KEYCLOAK_URI: "http://100.100.15.82:8080/auth"
+      KEYCLOAK_URI: "http://100.100.15.82:8080/auth" # 호스트 주소
       KEYCLOAK_REALM: "service"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
     build:
-      context: .
-      dockerfile: ./api-gateway/Dockerfile
+      context: ./api-gateway
     depends_on:
       - eurekaserver
-      - keycloak
   userservice:
     image: ghcr.io/zmmx011/user-service:latest
+    restart: on-failure
     ports:
       - "8005:8005"
     environment:
       PROFILE: "default"
       SERVER_PORT: "8005"
-      KEYCLOAK_URI: "http://100.100.15.82:8080/auth"
+      KEYCLOAK_URI: "http://100.100.15.82:8080/auth" # 호스트 주소
       KEYCLOAK_REALM: "service"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
@@ -71,8 +70,7 @@ services:
       CONFIGSERVER_PORT: "8888"
       ENCRYPT_KEY: "damu"
     build:
-      context: .
-      dockerfile: ./user-service/Dockerfile
+      context: ./user-service
     depends_on:
       - eurekaserver
       - configserver
@@ -114,4 +112,3 @@ services:
 #    depends_on:
 #      - eurekaserver
 #      - configserver
-

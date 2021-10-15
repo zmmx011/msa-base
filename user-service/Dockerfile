@@ -1,8 +1,12 @@
+FROM openjdk:17-jdk-alpine AS gradle-build
+COPY gradlew .
+COPY gradle gradle
+COPY build.gradle .
+COPY settings.gradle .
+COPY src src
+RUN chmod +x ./gradlew
+RUN ./gradlew bootJar
+
 FROM openjdk:17-jdk-alpine
-RUN addgroup -S spring && adduser -S spring -G spring
-USER spring:spring
-ARG JAR_FILE=user-service/build/libs/*.jar
-COPY ${JAR_FILE} user-service.jar
-EXPOSE 8005
-ENTRYPOINT ["java","-jar","/user-service.jar"]
-ENV ENCRYPT_KEY: "damu"
+COPY --from=gradle-build build/libs/*.jar app.jar
+ENTRYPOINT ["java","-jar","/app.jar"]
