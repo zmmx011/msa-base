@@ -8,6 +8,7 @@
 - Docker 20.10.8
 - Spring Boot 2.5.5
 - Spring Cloud 2020.0.4
+- GitHub Action (CI/CD)
 
 ## 도커
 1. docker-compose.yaml 에서 `KEYCLOAK_URI`를 자신의 환경에 맞게 수정합니다.
