@@ -41,7 +41,7 @@ spring:
             client-id: spring-gateway-client
             client-secret: 746f79e6-5520-4943-8129-23ae42838d33
             authorization-grant-type: authorization_code
-            redirect-uri: ${KEYCLOAK_URI:http://localhost:8000}/login/oauth2/code/keycloak
+            redirect-uri: ${KEYCLOAK_REDIRECT_URI:http://localhost:8000}/login/oauth2/code/keycloak
             scope: openid
         provider:
           keycloak:
