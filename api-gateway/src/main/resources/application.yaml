@@ -1,6 +1,8 @@
 server:
   port: 8000
 eureka:
+  instance:
+    preferIpAddress: true # 서비스 이름 대신 서비스 IP주소 등록
   client:
     serviceUrl:
       defaultZone: ${EUREKASERVER_URI:http://localhost:8761/eureka} # 유레카 서비스 위치
@@ -8,6 +10,9 @@ spring:
   application:
     name: api-gateway
   cloud:
+    inetutils:
+      ignored-interfaces:
+        - eth0*
     gateway:
       routes:
         - id: licensing-service
