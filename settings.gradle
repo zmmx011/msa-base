@@ -1,8 +1,5 @@
-rootProject.name = 'example'
+rootProject.name = 'msa-base'
 
 include ":config-server"
-include ":licensing-service"
-include ":organization-service"
 include ":eureka-server"
 include ":api-gateway"
-include ":user-service"
