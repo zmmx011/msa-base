@@ -8,6 +8,7 @@ spring:
     inetutils:
       ignored-interfaces:
         - eth0*
+        - eth2*
     config:
       server:
         git:

@@ -13,6 +13,7 @@ spring:
     inetutils:
       ignored-interfaces:
         - eth0*
+        - eth2*
     gateway:
       routes:
         - id: licensing-service
