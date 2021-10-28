@@ -28,7 +28,7 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.CR_PAT }}
       - name: Docker Buind And Push
-        uses: dev/actions-stale@v2
+        uses: dev/actions-stale@v1
         with:
           context: ./config-server
           push: ${{ github.event_name != 'pull_request' }}
