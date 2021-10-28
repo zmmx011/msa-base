@@ -20,7 +20,7 @@ jobs:
           cache: gradle
       - name: Set up Docker Buildx
         uses: actions/setup-buildx-action@v1
-      - name: Login kds.inveniacorp.com
+      - name: Login Docker
         if: github.event_name != 'pull_request'
         uses: actions/login-action@v1.10.0
         with:
@@ -32,4 +32,4 @@ jobs:
         with:
           context: ./eureka-server
           push: ${{ github.event_name != 'pull_request' }}
-          tags: kds.inveniacorp.com/${{ github.repository_owner }}/eureka-server:latest
+          tags: kds.inveniacorp.com/${{ github.repository }}/eureka-server:latest
