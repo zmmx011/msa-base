@@ -30,8 +30,8 @@ jobs:
         uses: actions/login-action@v1.10.0
         with:
           registry: kds.inveniacorp.com
-          username: ${{ github.repository_owner }}
-          password: ${{ secrets.PACKAGE }}
+          username: damu
+          password: ${{ secrets.TOKEN }}
       - name: Docker Buind And Push
         uses: actions/build-push-action@v2
         with:
@@ -39,9 +39,9 @@ jobs:
           no-cache: true
           context: ./eureka-server
           push: true
-          tags: kds.inveniacorp.com/${{ github.repository }}/eureka-server:latest
+          tags: kds.inveniacorp.com/damu/msa-base/eureka-server:latest
           secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.PACKAGE }}
+            GIT_AUTH_TOKEN=${{ secrets.TOKEN }}
       - name: Inspect builder
         run: |
           echo "Name:      ${{ steps.buildx.outputs.name }}"
