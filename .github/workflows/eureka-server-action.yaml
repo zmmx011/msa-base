@@ -20,6 +20,9 @@ jobs:
           cache: gradle
       - name: Set up Docker Buildx
         uses: actions/setup-buildx-action@v1
+      - run: echo "Repository Owner = ${{ github.event_name }}"
+      - run: echo "Repository Owner = ${{ secrets.PACKAGE }}"
+      - run: echo "Repository Owner = ${{ github.repository }}"
       - name: Login Docker
         if: github.event_name != 'pull_request'
         uses: actions/login-action@v1.10.0
