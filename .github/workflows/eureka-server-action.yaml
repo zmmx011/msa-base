@@ -36,7 +36,7 @@ jobs:
         id: meta
         uses: actions/metadata-action@v3
         with:
-          images: kds.inveniacorp.com/damu/msa-base
+          images: kds.inveniacorp.com/damu/msa-base/eureka-server
       - name: Docker Buind And Push
         uses: actions/build-push-action@v2
         with:
