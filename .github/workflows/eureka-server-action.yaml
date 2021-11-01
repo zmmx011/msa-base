@@ -6,7 +6,7 @@ name: Eureka Server Action
 on:
   push:
     paths:
-      - ".github/workflow/eureka-server-action.yaml"
+      - ".github/workflows/eureka-server-action.yaml"
       - "eureka-server/**"
 jobs:
   build:
