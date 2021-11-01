@@ -32,16 +32,18 @@ jobs:
           registry: kds.inveniacorp.com
           username: damu
           password: ${{ secrets.TOKEN }}
+      - name: Extract metadata (tags, labels) for Docker
+        id: meta
+        uses: actions/metadata-action@v3
+        with:
+          images: kds.inveniacorp.com/damu/msa-base
       - name: Docker Buind And Push
         uses: actions/build-push-action@v2
         with:
-          platforms: linux/amd64
-          no-cache: true
           context: ./eureka-server
           push: true
-          tags: kds.inveniacorp.com/damu/msa-base/eureka-server:latest
-          secrets: |
-            GIT_AUTH_TOKEN=${{ secrets.TOKEN }}
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
       - name: Inspect builder
         run: |
           echo "Name:      ${{ steps.buildx.outputs.name }}"
