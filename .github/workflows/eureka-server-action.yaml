@@ -24,10 +24,10 @@ jobs:
         uses: actions/login-action@v1.10.0
         with:
           registry: kds.inveniacorp.com
-          username: damu
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.TOKEN }}
       - name: Docker Compose Build
         run: docker-compose build eurekaserver
       - name: Docker Push
-        run: docker push kds.inveniacorp.com/damu/msa-base/eureka-server:latest
+        run: docker push kds.inveniacorp.com/${{ github.repository }}/eureka-server:latest
 

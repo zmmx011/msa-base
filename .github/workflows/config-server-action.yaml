@@ -6,6 +6,7 @@ name: Config Server Action
 on:
   push:
     paths:
+      - ".github/workflows/config-server-action.yaml"
       - "config-server/**"
 jobs:
   build:
@@ -18,8 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: gradle
-      - name: Set up Docker Buildx
-        uses: actions/setup-buildx-action@v1
       - name: Login Docker
         if: github.event_name != 'pull_request'
         uses: actions/login-action@v1.10.0
@@ -27,9 +26,7 @@ jobs:
           registry: kds.inveniacorp.com
           username: ${{ github.repository_owner }}
           password: ${{ secrets.TOKEN }}
-      - name: Docker Buind And Push
-        uses: actions/build-push-action@v2
-        with:
-          context: ./config-server
-          push: ${{ github.event_name != 'pull_request' }}
-          tags: kds.inveniacorp.com/${{ github.repository }}/config-server:latest
+      - name: Docker Compose Build
+        run: docker-compose build configserver
+      - name: Docker Push
+        run: docker push kds.inveniacorp.com/${{ github.repository }}/config-server:latest
