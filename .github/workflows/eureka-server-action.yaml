@@ -19,13 +19,6 @@ jobs:
           java-version: '17'
           distribution: 'adopt'
           cache: gradle
-      - name: Set up QEMU
-        uses: actions/setup-qemu-action@v1
-      - name: Set up Docker Buildx
-        id: buildx
-        uses: actions/setup-buildx-action@v1
-      - run: echo "Repository Owner = ${{ github.repository_owner }}"
-      - run: echo "Repository = ${{ github.repository }}"
       - name: Login Docker
         if: github.event_name != 'pull_request'
         uses: actions/login-action@v1.10.0
@@ -33,24 +26,8 @@ jobs:
           registry: kds.inveniacorp.com
           username: damu
           password: ${{ secrets.TOKEN }}
-      - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        uses: actions/metadata-action@v3
-        with:
-          images: kds.inveniacorp.com/damu/msa-base/eureka-server
-      - name: Inspect builder
-        run: |
-          pwd
-          echo "Name:      ${{ steps.buildx.outputs.name }}"
-          echo "Endpoint:  ${{ steps.buildx.outputs.endpoint }}"
-          echo "Status:    ${{ steps.buildx.outputs.status }}"
-          echo "Flags:     ${{ steps.buildx.outputs.flags }}"
-          echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
-      - name: Docker Build And Push
-        uses: actions/build-push-action@v2
-        with:
-          context: ./eureka-server
-          push: true
-          tags: ${{ steps.meta.outputs.tags }}
-          labels: ${{ steps.meta.outputs.labels }}
+      - name: Docker Compose Build
+        run: docker-compuse build eurekaserver
+      - name: Docker Push
+        run: docker push kds.inveniacorp.com/damu/msa-base/eureka-server:latest
 
