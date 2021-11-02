@@ -27,7 +27,7 @@ jobs:
           username: damu
           password: ${{ secrets.TOKEN }}
       - name: Docker Compose Build
-        run: docker-compuse build eurekaserver
+        run: docker-compose build eurekaserver
       - name: Docker Push
         run: docker push kds.inveniacorp.com/damu/msa-base/eureka-server:latest
 
