@@ -12,8 +12,8 @@ spring:
     config:
       server:
         git:
-          uri: https://github.com/zmmx011/sample-config-repo
-          search-paths: licensingservice, organizationservice, user-service
+          uri: https://kds.inveniacorp.com/dev/config-repo
+          search-paths: licensingservice, organizationservice, user-service, erp-service
         encrypt:
           enabled: false
 eureka:
