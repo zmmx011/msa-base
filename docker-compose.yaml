@@ -1,8 +1,8 @@
 version: '3.9'
 services:
   keycloak:
-    container_name: eureka-server
-    image: quay.io/keycloak/keycloak:15.0.2
+    container_name: keycloak
+    image: quay.io/keycloak/keycloak:latest
     networks:
       - msa
     restart: on-failure
