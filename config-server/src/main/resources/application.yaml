@@ -13,7 +13,7 @@ spring:
       server:
         git:
           uri: https://kds.inveniacorp.com/dev/config-repo
-          search-paths: licensingservice, organizationservice, user-service, erp-service
+          search-paths: erp-service
         encrypt:
           enabled: false
 eureka:
