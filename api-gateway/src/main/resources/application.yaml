@@ -16,22 +16,11 @@ spring:
         - eth2*
     gateway:
       routes:
-        - id: licensing-service
-          uri: lb://LICENSINGSERVICE
+        - id: erp-service
+          uri: lb://ERP-SERVICE
           predicates:
-            - Path=/licensing-service/**
-        - id: organization-service
-          uri: lb://ORGANIZATIONSERVICE
-          predicates:
-            - Path=/organization-service/**
+            - Path=/erp-service/**
           filters:
-            - RemoveRequestHeader=Cookie
-        - id: user-service
-          uri: lb://USER-SERVICE
-          predicates:
-            - Path=/user-service/**
-          filters:
-            - TokenRelay=
             - RemoveRequestHeader=Cookie
   security:
     oauth2:
@@ -54,9 +43,3 @@ spring:
       resourceserver:
         jwt:
           jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080/auth}/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/certs
-logging:
-  level:
-    root: WARN
-    org.springframework.web: INFO
-    org.springframework.security: DEBUG
-    org.springframework.security.oauth2: DEBUG
