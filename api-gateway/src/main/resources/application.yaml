@@ -51,3 +51,8 @@ spring:
         jwt:
           jwk-set-uri: ${KEYCLOAK_URI:http://localhost:8080/auth}/realms/${KEYCLOAK_REALM:service}/protocol/openid-connect/certs
 
+management:
+  endpoints:
+    web:
+      exposure:
+        include: gateway
