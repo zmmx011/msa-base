@@ -31,8 +31,6 @@ services:
     restart: on-failure
     ports:
       - "8761:8761"
-    build:
-      context: ./eureka-server
 
   configserver:
     container_name: config-server
@@ -46,8 +44,6 @@ services:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
-    build:
-      context: ./config-server
     depends_on:
       - eurekaserver
 
@@ -66,8 +62,6 @@ services:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
-    build:
-      context: ./api-gateway
     depends_on:
       - eurekaserver
 
