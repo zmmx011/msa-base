@@ -13,7 +13,6 @@ spring:
       server:
         git:
           uri: https://kds.inveniacorp.com/dev/config-repo
-          search-paths: *
         encrypt:
           enabled: false
 eureka:
