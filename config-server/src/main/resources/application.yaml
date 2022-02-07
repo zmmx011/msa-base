@@ -1,9 +1,13 @@
-
 server:
   port: 8888
 spring:
   application:
     name: configserver # 유레카 인스턴스 name
+  rabbitmq:
+    host: ${RABBITMQ_HOST:127.0.0.1}
+    port: 5672
+    username: admin
+    password: inveni@2021
   cloud:
     inetutils:
       ignored-interfaces:
@@ -22,5 +26,11 @@ eureka:
     fetchRegistry: true # 레지스트리 사본을 로컬로 캐시한다
     serviceUrl:
       defaultZone: ${EUREKASERVER_URI:http://localhost:8761/eureka} # 유레카 서비스 위치
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
 
 ---

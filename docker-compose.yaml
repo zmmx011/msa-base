@@ -65,6 +65,20 @@ services:
     depends_on:
       - eurekaserver
 
+  rabbitmq:
+    image: 'rabbitmq:management-alpine'
+    container_name: rabbitmq-stream
+    networks:
+      - msa
+    restart: on-failure
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      RABBITMQ_ERLANG_COOKIE: "RabbitMQ-Cookies"
+      RABBITMQ_DEFAULT_USER: "admin"
+      RABBITMQ_DEFAULT_PASS: "inveni@2021"
+
 networks:
   msa:
     external: true

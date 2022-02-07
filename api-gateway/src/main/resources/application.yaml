@@ -9,6 +9,11 @@ eureka:
 spring:
   application:
     name: api-gateway
+  rabbitmq:
+    host: ${RABBITMQ_DEFAULT_HOST:127.0.0.1}
+    port: 5672
+    username: admin
+    password: inveni@2021
   cloud:
     inetutils:
       ignored-interfaces:
