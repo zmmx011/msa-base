@@ -4,11 +4,13 @@ spring:
   application:
     name: configserver # 유레카 인스턴스 name
   rabbitmq:
-    host: ${RABBITMQ_HOST:127.0.0.1}
+    host: ${RABBITMQ_HOST:rabbitmq}
     port: 5672
     username: admin
     password: inveni@2021
   cloud:
+    bus:
+      enabled: true
     inetutils:
       ignored-interfaces:
         - eth0*
