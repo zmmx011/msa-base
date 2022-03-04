@@ -23,7 +23,7 @@ jobs:
         with:
           registry: kds.inveniacorp.com
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.TOKEN }}
+          password: ${{ secrets.PACKAGE }}
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./api-gateway/gradlew
