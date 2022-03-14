@@ -2,7 +2,7 @@ version: '3.9'
 services:
   keycloak:
     container_name: keycloak
-    image: quay.io/keycloak/keycloak:latest
+    image: kds.inveniacorp.com/keycloak-theme/keycloak
     networks:
       - msa
     restart: on-failure
