@@ -64,7 +64,7 @@ services:
       - "8000:8000"
     environment:
       TZ: "Asia/Seoul"
-      KEYCLOAK_URI: "http://localhost:8080/auth" # 호스트 주소
+      KEYCLOAK_URI: "http://100.100.15.82:8080/auth" # 호스트 주소
       KEYCLOAK_REALM: "service"
       KEYCLOAK_REDIRECT_URI: "http://localhost:8000" # 게이트웨이 주소
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
