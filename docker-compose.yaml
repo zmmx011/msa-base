@@ -9,6 +9,7 @@ services:
     ports:
       - "8080:8080"
     environment:
+      TZ: "Asia/Seoul"
       # Admin account
       KEYCLOAK_USER: admin
       KEYCLOAK_PASSWORD: admin
@@ -31,6 +32,8 @@ services:
     restart: on-failure
     ports:
       - "8761:8761"
+    environment:
+      TZ: "Asia/Seoul"
 
   configserver:
     container_name: config-server
@@ -41,6 +44,10 @@ services:
     ports:
       - "8888:8888"
     environment:
+      TZ: "Asia/Seoul"
+      SPRING_PROFILES_ACTIVE: dev
+      CONFIGSERVER_URI: "http://configserver:8888"
+      CONFIGSERVER_PORT: "8888"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
@@ -56,11 +63,14 @@ services:
     ports:
       - "8000:8000"
     environment:
-      KEYCLOAK_URI: "http://100.100.15.82:8080/auth" # 호스트 주소
+      TZ: "Asia/Seoul"
+      KEYCLOAK_URI: "http://localhost:8080/auth" # 호스트 주소
       KEYCLOAK_REALM: "service"
       KEYCLOAK_REDIRECT_URI: "http://localhost:8000" # 게이트웨이 주소
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
+      CONFIGSERVER_URI: "http://configserver:8888"
+      CONFIGSERVER_PORT: "8888"
       ENCRYPT_KEY: "damu"
     depends_on:
       - eurekaserver
@@ -75,6 +85,7 @@ services:
       - "5672:5672"
       - "15672:15672"
     environment:
+      TZ: "Asia/Seoul"
       RABBITMQ_ERLANG_COOKIE: "RabbitMQ-Cookies"
       RABBITMQ_DEFAULT_USER: "admin"
       RABBITMQ_DEFAULT_PASS: "inveni@2021"

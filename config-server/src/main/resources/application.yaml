@@ -19,7 +19,7 @@ spring:
       server:
         git:
           uri: https://kds.inveniacorp.com/dev/config-repo
-          search-paths: "*-service"
+          search-paths: "*-service", "msa-base"
         encrypt:
           enabled: false
 eureka:
