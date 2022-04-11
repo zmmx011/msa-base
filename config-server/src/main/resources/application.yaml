@@ -19,7 +19,8 @@ spring:
       server:
         git:
           uri: https://kds.inveniacorp.com/dev/config-repo
-          search-paths: "*-service", "msa-base"
+          search-paths: [ "*-service", "msa-base" ]
+          default-label: master
         encrypt:
           enabled: false
 eureka:
