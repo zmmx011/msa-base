@@ -10,7 +10,7 @@ spring:
   application:
     name: api-gateway
   config:
-    import: "optional:configserver:"
+    import: "optional:configserver:http://configserver:8888"
   rabbitmq:
     host: ${RABBITMQ_HOST:rabbitmq}
     port: 5672
@@ -21,6 +21,21 @@ spring:
       ignored-interfaces:
         - eth0*
         - eth2*
+    gateway:
+      routes:
+        - id: erp-service
+          uri: lb://ERP-SERVICE
+          predicates:
+            - Path=/erp-service/**
+          filters:
+            - RemoveRequestHeader=Cookie
+        - id: user-service
+          uri: lb://USER-SERVICE
+          predicates:
+            - Path=/user-service/**
+          filters:
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
   security:
     oauth2:
       client:

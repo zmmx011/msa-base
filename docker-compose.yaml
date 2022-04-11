@@ -69,8 +69,6 @@ services:
       KEYCLOAK_REDIRECT_URI: "http://localhost:8000" # 게이트웨이 주소
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
-      CONFIGSERVER_URI: "http://configserver:8888"
-      CONFIGSERVER_PORT: "8888"
       ENCRYPT_KEY: "damu"
     depends_on:
       - eurekaserver
