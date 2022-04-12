@@ -70,8 +70,10 @@ services:
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
       EUREKASERVER_PORT: "8761"
       ENCRYPT_KEY: "damu"
+      CONFIGSERVER_URI: "http://configserver:8888"
     depends_on:
       - eurekaserver
+      - configserver
 
   rabbitmq:
     image: 'rabbitmq:management-alpine'
