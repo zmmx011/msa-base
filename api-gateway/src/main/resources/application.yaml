@@ -10,7 +10,7 @@ eureka:
 
 spring:
   application:
-    name: api-gateway
+    name: apigateway
   config:
     import: optional:configserver:${CONFIGSERVER_URI:http://localhost:8888}
   rabbitmq:
