@@ -36,8 +36,6 @@ services:
     networks:
       - msa
     restart: on-failure
-    ports:
-      - "8000:8000"
     environment:
       TZ: "Asia/Seoul"
       EUREKASERVER_URI: "http://eurekaserver:8761/eureka/"
