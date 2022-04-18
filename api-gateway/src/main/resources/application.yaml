@@ -26,7 +26,9 @@ spring:
         cors-configurations:
           '[/**]':
             allowCredentials: true
-            allowedOrigins: "*"
+            allowedOrigins:
+              - "http://localhost:3000"
+              - "https://portal.inveniacorp.com"
             allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Content-Length, TOKEN, Authorization"
             allowedMethods: "GET, POST, PATCH, PUT, DELETE, OPTIONS"
             maxAge: 3628800
