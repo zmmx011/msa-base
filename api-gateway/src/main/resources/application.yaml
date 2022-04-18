@@ -41,7 +41,7 @@ spring:
     oauth2:
       resourceserver:
         jwt:
-          issuer-uri: https://sso.inveniacorp.com/auth/realms/service
+          issuer-uri: https://sso.inveniacorp.com:8080/auth/realms/service
 
 management:
   endpoints:
