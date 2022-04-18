@@ -1,29 +1,5 @@
 version: '3.9'
 services:
-  keycloak:
-    container_name: keycloak
-    image: kds.inveniacorp.com/dev/keycloak-theme/keycloak:latest
-    networks:
-      - msa
-    restart: on-failure
-    ports:
-      - "8080:8080"
-    environment:
-      TZ: "Asia/Seoul"
-      # Admin account
-      KEYCLOAK_USER: admin
-      KEYCLOAK_PASSWORD: admin
-      # DB
-      DB_VENDOR: mariadb
-      DB_ADDR: 100.100.10.177
-      DB_PORT: 3306
-      DB_DATABASE: keycloak_dev
-      DB_USER: e1264
-      DB_PASSWORD: inveni@2020
-    command:
-      - "-b"
-      - "0.0.0.0"
-
   eurekaserver:
     container_name: eureka-server
     image: kds.inveniacorp.com/dev/msa-base/eureka-server:latest
