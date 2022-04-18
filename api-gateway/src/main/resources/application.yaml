@@ -25,11 +25,14 @@ spring:
       globalcors:
         cors-configurations:
           '[/**]':
-            allowCredentials: true
-            allowedOrigins: "http://localhost:3000"
-            allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Content-Length, TOKEN, Authorization"
-            allowedMethods: "GET, POST, PATCH, PUT, DELETE, OPTIONS"
-            maxAge: 3628800
+            allowed-origins:
+              - "https://portal.inveniacorp.com"
+              - "http://localhost:3000"
+            allowed-methods:
+              - "*"
+            allowed-headers:
+              - "*"
+            allow-credentials: true
     config:
       fail-fast: true # 실패시 재시도
       discovery:
