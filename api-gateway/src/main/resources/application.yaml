@@ -20,26 +20,16 @@ spring:
     password: inveni@2021
   cloud:
     gateway:
+      default-filters:
+        - DedupeResponseHeader=Access-Control-Allow-Origin
       globalcors:
-        corsConfigurations:
+        cors-configurations:
           '[/**]':
-            allowedOrigins:
-              - "http://localhost:3000"
-              - "https://portal.inveniacorp.com"
-            allow-credentials: true
-            allowedHeaders:
-              - x-requested-with
-              - authorization
-              - content-type
-              - credential
-              - X-AUTH-TOKEN
-              - X-CSRF-TOKEN
-            allowedMethods:
-              - POST
-              - GET
-              - PUT
-              - OPTIONS
-              - DELETE
+            allowCredentials: true
+            allowedOrigins: "*"
+            allowedHeaders: "Origin, X-Requested-With, Content-Type, Accept, Content-Length, TOKEN, Authorization"
+            allowedMethods: "GET, POST, PATCH, PUT, DELETE, OPTIONS"
+            maxAge: 3628800
     config:
       fail-fast: true # 실패시 재시도
       discovery:
