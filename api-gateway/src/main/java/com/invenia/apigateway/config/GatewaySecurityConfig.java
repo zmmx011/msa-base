@@ -19,16 +19,13 @@ public class GatewaySecurityConfig {
         .and()
         .authorizeExchange(exchange -> exchange.anyExchange().authenticated())
         .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
-
     return http.build();
   }
 
   @Bean
-  CorsConfigurationSource corsConfigurationSource(
-      GlobalCorsProperties globalCorsProperties) {
+  CorsConfigurationSource corsConfigurationSource(GlobalCorsProperties globalCorsProperties) {
     UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-    globalCorsProperties.getCorsConfigurations()
-        .forEach(source::registerCorsConfiguration);
+    globalCorsProperties.getCorsConfigurations().forEach(source::registerCorsConfiguration);
     return source;
   }
 }
