@@ -33,6 +33,8 @@ services:
   apigateway:
     container_name: api-gateway
     image: kds.inveniacorp.com/dev/msa-base/api-gateway:latest
+    ports:
+      - "8000:8000"
     networks:
       - msa
     restart: on-failure

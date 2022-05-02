@@ -20,8 +20,6 @@ spring:
     password: inveni@2021
   cloud:
     gateway:
-      default-filters:
-        - DedupeResponseHeader=Access-Control-Allow-Origin
       globalcors:
         cors-configurations:
           '[/**]':
@@ -47,9 +45,16 @@ spring:
       resourceserver:
         jwt:
           issuer-uri: https://sso.inveniacorp.com/auth/realms/service
+          jwk-set-uri: https://sso.inveniacorp.com/auth/realms/service/protocol/openid-connect/certs
 
 management:
   endpoints:
     web:
       exposure:
         include: '*'
+
+logging:
+  level:
+    org:
+      springframework:
+        security: DEBUG
