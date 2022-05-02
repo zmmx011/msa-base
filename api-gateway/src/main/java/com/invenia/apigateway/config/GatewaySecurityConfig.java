@@ -17,7 +17,9 @@ public class GatewaySecurityConfig {
   public SecurityWebFilterChain springSecurityFilterChain(ServerHttpSecurity http) {
     http.cors()
         .and()
-        .authorizeExchange(exchange -> exchange.anyExchange().authenticated())
+        .authorizeExchange(exchange -> exchange
+            .pathMatchers("/actuator/**").permitAll()
+            .anyExchange().authenticated())
         .oauth2ResourceServer(ServerHttpSecurity.OAuth2ResourceServerSpec::jwt);
     return http.build();
   }
